@@ -50,7 +50,7 @@
             font-family: 'Inter', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
-            padding-top: 110px; /* Base desktop header offset */
+            padding-top: 110px; /* Offset fixed header */
         }
 
         .container {
@@ -332,7 +332,6 @@
             border-bottom: 2px solid rgba(63, 29, 37, 0.12);
         }
 
-        /* New grid container to handle responsive alignment */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -469,7 +468,7 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            word-break: break-word; /* Prevents long URLs from overflowing mobile bounds */
+            word-break: break-word;
         }
 
         /* --- 9. Robust Mobile Responsive Breakpoints --- */
@@ -489,10 +488,10 @@
 
         @media (max-width: 768px) {
             body {
-                padding-top: 160px; /* Gives the stacked header plenty of clearance */
+                padding-top: 160px;
             }
             .container {
-                flex-direction: column !important; /* Forces vertical stacking */
+                flex-direction: column !important;
                 text-align: center;
                 justify-content: center;
                 gap: 30px;
@@ -500,7 +499,7 @@
             }
             section {
                 padding: 40px 10px;
-                min-height: auto; /* Keeps heights natural on mobile */
+                min-height: auto;
             }
             header {
                 flex-direction: column;
@@ -516,7 +515,7 @@
                 max-width: 100%;
             }
             .hero-headline {
-                font-size: 38px; /* Tighter layout for mobile viewports */
+                font-size: 38px;
             }
             .btn-container {
                 justify-content: center;
@@ -557,7 +556,7 @@
 
     <header>
         <div class="logo">
-            <img src="images\logo.png" alt="Eden logo" style="height:72px; width:auto; display:block;">
+            <img src="images/logo.png" alt="Eden logo" style="height:72px; width:auto; display:block;">
         </div>
         <nav>
             <ul>
@@ -585,8 +584,7 @@
                 </div>
             </div>
             <div class="img-frame-wrapper">
-                <img src="./images/hero-image.png" alt="Eden Joy Dela Cruz" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                
+                <img src="./images/hero-image.png" alt="Eden Joy Dela Cruz" onerror="this.style.display='none';">
             </div>
         </div>
     </section>
@@ -609,8 +607,7 @@
                 </div>
             </div>
             <div class="img-frame-wrapper">
-                <img src="./images/about-image.jpg" alt="Eden Joy Dela Cruz" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                
+                <img src="./images/about-image.jpg" alt="Eden Joy Dela Cruz" onerror="this.style.display='none';">
             </div>
         </div>
     </section>
@@ -649,7 +646,6 @@
                     <h3>Website Project 1</h3>
                     <p>Tourist Website of the Municipality of Tuao Cagayan </p>
                 </div>
-            
                 <div class="portfolio-blob-frame">
                     <div class="portfolio-inner-img">
                         <img src="./images/project-2.png" alt="Project Image" onerror="this.style.display='none';">
@@ -697,13 +693,17 @@
             let current = '';
             const scrollPosition = window.scrollY + 160;
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
+            if (window.scrollY === 0) {
+                current = 'home';
+            } else {
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+            }
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
