@@ -50,7 +50,7 @@
             font-family: 'Inter', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
-            padding-top: 90px; /* Offset fixed header */
+            padding-top: 110px; /* Base desktop header offset */
         }
 
         .container {
@@ -69,7 +69,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 20px;
+            padding: 60px 20px;
             position: relative;
         }
 
@@ -92,7 +92,7 @@
             font-size: 32px;
             font-weight: 800;
             color: var(--dark-panel-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: block;
@@ -141,7 +141,7 @@
             display: flex;
             align-items: center;
             list-style: none;
-            gap: 8px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
@@ -191,6 +191,7 @@
         .btn-container {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn-primary, .btn-secondary {
@@ -203,6 +204,7 @@
             transition: var(--transition-smooth);
             box-shadow: var(--card-shadow);
             display: inline-block;
+            text-align: center;
         }
 
         .btn-primary {
@@ -227,12 +229,8 @@
 
         /* Home image styling */
         .img-frame-wrapper {
-            background: transparent;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
             position: relative;
-            overflow: visible;
+            flex-shrink: 0;
         }
 
         .img-frame-wrapper img {
@@ -243,20 +241,6 @@
             box-shadow: 0 0 30px rgba(248, 218, 226, 0.35), 0 0 60px rgba(108, 66, 76, 0.25);
             display: block;
             border: 2px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .img-placeholder {
-            width: 300px;
-            height: 380px;
-            background: transparent;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--text-muted);
-            box-shadow: none;
-            border: none;
         }
 
         /* --- 5. About Section (#about) --- */
@@ -282,6 +266,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            width: 100%;
         }
 
         .checklist-item {
@@ -306,7 +291,6 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             width: 100%;
-            margin-top: 15px;
         }
 
         .skill-card {
@@ -348,13 +332,20 @@
             border-bottom: 2px solid rgba(63, 29, 37, 0.12);
         }
 
+        /* New grid container to handle responsive alignment */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
         .portfolio-blob-frame {
             background-color: var(--container-color);
             padding: 24px;
             border-radius: var(--border-radius);
             box-shadow: var(--outer-shadow);
             width: 100%;
-            max-width: 450px;
             transition: var(--transition-smooth);
         }
 
@@ -381,6 +372,7 @@
             font-size: 18px;
             color: var(--dark-panel-color);
             margin-top: 10px;
+            margin-bottom: 5px;
         }
 
         /* --- 8. Contact & Footer Section (#contact) --- */
@@ -388,17 +380,15 @@
             background-color: var(--dark-panel-color);
             color: var(--text-light);
             min-height: 100vh;
-            padding: 110px 20px;
+            padding: 80px 20px;
             box-shadow: inset 0 20px 30px rgba(0,0,0,0.2);
-            margin-top: 20px;
         }
 
         #contact .container {
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             gap: 60px;
             flex-wrap: wrap;
-            min-height: 60vh;
         }
 
         .contact-left,
@@ -411,7 +401,6 @@
             flex: 1 1 320px;
             max-width: 420px;
             align-items: flex-start;
-            justify-content: center;
         }
 
         .contact-left h2 {
@@ -447,7 +436,6 @@
             gap: 16px;
             width: 100%;
             align-items: stretch;
-            justify-content: center;
         }
 
         .contact-method {
@@ -481,58 +469,62 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            word-break: break-word;
+            word-break: break-word; /* Prevents long URLs from overflowing mobile bounds */
         }
 
-        /* --- 9. Responsive Breakpoints --- */
+        /* --- 9. Robust Mobile Responsive Breakpoints --- */
+        @media (max-width: 900px) {
+            header {
+                width: calc(100% - 24px);
+                padding: 10px 16px;
+            }
+            .logo img {
+                height: 44px;
+            }
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                padding-top: 160px; /* Gives the stacked header plenty of clearance */
+            }
             .container {
-                flex-direction: column;
+                flex-direction: column !important; /* Forces vertical stacking */
                 text-align: center;
                 justify-content: center;
+                gap: 30px;
+                padding: 20px;
             }
             section {
-                padding: 60px 16px;
+                padding: 40px 10px;
+                min-height: auto; /* Keeps heights natural on mobile */
+            }
+            header {
+                flex-direction: column;
+                border-radius: 20px;
+                gap: 8px;
+                top: 10px;
+            }
+            nav ul {
+                justify-content: center;
+                gap: 2px;
             }
             .hero-text, .about-text {
                 max-width: 100%;
             }
+            .hero-headline {
+                font-size: 38px; /* Tighter layout for mobile viewports */
+            }
             .btn-container {
                 justify-content: center;
             }
-            header {
-                flex-direction: column;
-                gap: 10px;
-                border-radius: 20px;
-            }
-            body {
-                padding-top: 140px;
-            }
-            .img-frame-wrapper img, .img-placeholder {
-                width: 100%;
-                max-width: 300px;
-                height: 340px;
-            }
-            #contact .container {
-                align-items: center;
-                gap: 30px;
-            }
-            .contact-left,
-            .contact-right {
-                max-width: 100%;
-                text-align: center;
-                align-items: center;
-            }
-            .contact-method {
-                justify-content: center;
-            }
-            header {
-                padding: 12px 16px;
-                border-radius: 24px;
-                justify-content: center;
-            }
-            nav ul {
-                justify-content: center;
+            .img-frame-wrapper img {
+                width: 260px;
+                height: 330px;
+                margin: 0 auto;
             }
             #skills .container,
             #projects .container {
@@ -540,6 +532,23 @@
             }
             .section-title {
                 text-align: center;
+            }
+            .checklist-container {
+                align-items: center;
+            }
+            .checklist-item {
+                width: 100%;
+                max-width: 320px;
+                justify-content: flex-start;
+            }
+            .contact-left,
+            .contact-right {
+                max-width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+            .contact-method {
+                justify-content: flex-start;
             }
         }
     </style>
@@ -632,23 +641,24 @@
     <section id="projects">
         <div class="container">
             <h2 class="section-title">Projects</h2>
-            <div class="portfolio-blob-frame">
-                <div class="portfolio-inner-img">
-                    <img src="./images/project-1.png" alt="Project Image" onerror="this.style.display='none';">
+            <div class="projects-grid">
+                <div class="portfolio-blob-frame">
+                    <div class="portfolio-inner-img">
+                        <img src="./images/project-1.png" alt="Project Image" onerror="this.style.display='none';">
+                    </div>
+                    <h3>Website Project 1</h3>
+                    <p>Tourist Website of the Municipality of Tuao Cagayan </p>
                 </div>
-                <h3>Website Project 1</h3>
-                <p>Tourist Website of the Municipality of Tuao Cagayan </p>
+            
+                <div class="portfolio-blob-frame">
+                    <div class="portfolio-inner-img">
+                        <img src="./images/project-2.png" alt="Project Image" onerror="this.style.display='none';">
+                    </div>
+                    <h3>Website Project 2</h3>
+                    <p>SmartHash Windows Application </p>
+                </div>
             </div>
         </div>
-        
-            <div class="portfolio-blob-frame">
-                <div class="portfolio-inner-img">
-                    <img src="./images/project-2.png" alt="Project Image" onerror="this.style.display='none';">
-                </div>
-                <h3>Website Project 2</h3>
-                <p>SmartHash Windows Application </p>
-            </div>
-       
     </section>
 
     <section id="contact">
